@@ -29,25 +29,30 @@ public class RomanNumbers {
         loadValues();
         int result = 0;
         for(int i = s.length()-1; i >= 0; i--){
-            String currentValue = String.valueOf(s.charAt(i));
-            if((i - 1) < 0){
-                result = result + romanValues.get(currentValue.toUpperCase());
-                return result;
-            }
-            String previousValue = String.valueOf(s.charAt(i - 1));
-            if (romanOrder.indexOf(previousValue) > romanOrder.indexOf(currentValue)){
-                result = result - romanValues.get(currentValue.toUpperCase());
+
+            if(i == s.length()-1){
+                result = result + romanValues.get(String.valueOf(s.charAt(i))
+                        .toUpperCase());
             }
             else{
-                result = result + romanValues.get(currentValue.toUpperCase());
+                String currentValue = String.valueOf(s.charAt(i));
+                String previousValue = String.valueOf(s.charAt(i + 1));
+                if (romanOrder.indexOf(previousValue) > romanOrder.indexOf(currentValue)){
+                    result = result - romanValues.get(currentValue.toUpperCase());
+                }
+                else{
+                    result = result + romanValues.get(currentValue.toUpperCase());
+                }
             }
+
+
 
         }
         return result;
     }
 
     public static void main(String[] args) {
-        System.out.println(romanToInt("LVIII"));
+        System.out.println(romanToInt("IV"));
     }
 
 }
